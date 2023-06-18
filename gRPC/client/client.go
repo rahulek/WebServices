@@ -45,8 +45,8 @@ func main() {
 
 	capabilities(client)
 
-	tranformation(client, 11, 111, 1111)
-	tranformation(client, -9, -10, -11)
+	transformation(client, 11, 111, 1111)
+	transformation(client, -9, -10, -11)
 }
 
 // Add Two Ints
@@ -143,7 +143,7 @@ func capabilities(client pb.MathServiceClient) error {
 }
 
 // Two Way Transformation
-func tranformation(client pb.MathServiceClient, ints ...int) error {
+func transformation(client pb.MathServiceClient, ints ...int) error {
 	stream, err := client.Transform(context.Background())
 	if err != nil {
 		fmt.Printf("transformation: Failed to get the stream: %v\n", err)
