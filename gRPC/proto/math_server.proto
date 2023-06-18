@@ -1,0 +1,46 @@
+//protoc --go_out=. --go_opt=paths=source_relative --go-grpc_out=. --go-grpc_opt=paths=source_relative proto/math_server.proto
+syntax = "proto3";
+package math_server;
+
+option go_package = "math_service/math_server";
+
+
+service MathService {
+    //Simple RPC
+    rpc Add(TwoInts) returns (Result) {}
+    rpc Multiply(TwoInts) returns (Result) {}
+
+    //Client -> Server Stream
+    rpc AddN(stream IntInput) returns (Result) {}
+    rpc MultiplyN(stream IntInput) returns (Result) {}
+
+    //Server -> Client Stream
+    rpc GetCapabilties(Dummy) returns (stream CapabilitiesResult) {}
+
+    //Client -> Server Bidirectional Stream
+    rpc Transform(stream IntInput) returns (stream TransformationResult) {}
+}
+
+message TwoInts {
+    int32 n1 = 1;
+    int32 n2 = 2;
+}
+
+message IntInput {
+    int32 n1 = 1;
+}
+
+message Result {
+    int64 result = 1;
+}
+
+message CapabilitiesResult {
+    string capability = 1;
+}
+
+message TransformationResult {
+    string transformed = 1;
+}
+
+message Dummy {
+}
